@@ -24,5 +24,28 @@ function drawGame()
 //Début du jeu
 $(function()
 {
-	initCanvas();
+	$.get("genMap.php", function(e)
+	{
+		tiles = [];
+		json = JSON.parse(e);
+		for(var i = 0; i < json.length; i++)
+		{
+			levelWidth = json[i].length;
+			tiles = tiles.concat(json[i]);
+		}
+		
+		for(var j = 0; j < tiles.length; j++)
+		{
+			if(tiles[j] == 2)
+			{
+				tiles[j] = 0;
+				playerX = j % levelWidth;
+				playerZ = parseInt(j / levelWidth);
+				break;
+			}
+		}
+		
+		initCanvas();
+	});
+	
 });
