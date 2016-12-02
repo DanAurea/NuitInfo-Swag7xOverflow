@@ -47,14 +47,25 @@
         }
 
         private function hcorridor($x1, $x2, $y){
-            for($x = min($x1, $x2); $x <= max($x1,$x2); $x++){
-                $this->matrix[$x][$y] = 0;
+            for($x = min($x1, $x2); $x < max($x1,$x2); $x++){
+
+                if( $this->matrix[$x][$y-1] != 0)
+                    $this->matrix[$x][$y-1] = 1;
+                $this->matrix[$x][$y]   = 0;
+                if( $this->matrix[$x][$y+1] != 0)
+                    $this->matrix[$x][$y+1] = 1;
             }
         }
 
         private function vcorridor($y1, $y2, $x){
-            for($y = min($y1, $y2); $y <= max($y1,$y2); $y++){
-                $this->matrix[$x][$y] = 0;
+            for($y = min($y1, $y2); $y < max($y1,$y2); $y++){
+
+                if( $this->matrix[$x-1][$y] != 0)
+                    $this->matrix[$x-1][$y] = 1;
+                $this->matrix[$x][$y]   = 0;
+                
+                if( $this->matrix[$x+1][$y] != 0)
+                    $this->matrix[$x+1][$y] = 1;
             }
         }
 
