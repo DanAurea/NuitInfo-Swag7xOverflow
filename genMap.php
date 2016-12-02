@@ -1,11 +1,3 @@
- <!DOCTYPE html>
-<html>
-<head>
-<title>Title of the document</title>
-</head>
-
-<body>
-
 <?php 
     
     class Room{
@@ -55,13 +47,13 @@
         }
 
         private function hcorridor($x1, $x2, $y){
-            for($x = min($x1, $x2); $x < max($x1,$x2); $x++){
+            for($x = min($x1, $x2); $x <= max($x1,$x2); $x++){
                 $this->matrix[$x][$y] = 0;
             }
         }
 
         private function vcorridor($y1, $y2, $x){
-            for($y = min($y1, $y2); $y < max($y1,$y2); $y++){
+            for($y = min($y1, $y2); $y <= max($y1,$y2); $y++){
                 $this->matrix[$x][$y] = 0;
             }
         }
@@ -158,7 +150,13 @@
                     for($j = $this->rooms[$i]->x1; $j < $this->rooms[$i]->x2; $j++){
 
                         for($k = $this->rooms[$i]->y1; $k < $this->rooms[$i]->y2; $k++){
-                            if($k == $this->rooms[$i]->y1 || $k+1 == $this->rooms[$i]->y2 || $j == $this->rooms[$i]->x1 || $j+1 == $this->rooms[$i]->x2){
+
+                            if($j == $this->rooms[$i]->center['x']){
+                                $this->matrix[$j][$k] = 0;
+                            }else if($k == $this->rooms[$i]->center['y']){
+                                $this->matrix[$j][$k] = 0;
+                            }
+                            else if($k == $this->rooms[$i]->y1 || $k+1 == $this->rooms[$i]->y2 || $j == $this->rooms[$i]->x1 || $j+1 == $this->rooms[$i]->x2){
                                 $this->matrix[$j][$k] = 1;
                             }else
                                 $this->matrix[$j][$k] = 0;
@@ -176,10 +174,7 @@
     $map->placeRooms();
     $map->mapToMatrix();
     $map->placePlayer();
-    $map->printMatrixContent();
 
+    $json = json_encode($map->matrix);
+    echo $json;
 ?>
-
-</body>
-
-</html> 
