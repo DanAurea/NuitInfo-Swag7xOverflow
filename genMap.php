@@ -66,6 +66,15 @@
             }
         }
 
+        public function placePlayer(){
+            $nbRoom = rand(0, count($this->rooms));
+
+            $x = $this->rooms[$nbRoom]->center["x"];
+            $y = $this->rooms[$nbRoom]->center["y"];
+
+            $this->matrix[$x][$y] = 2;
+        }
+
         public function placeRooms(){
             
             $nbRooms = rand(6, self::MAX_ROOMS);
@@ -125,7 +134,7 @@
         private function initMatrix(){
             for ($i=0; $i < count($this->matrix); $i++) { 
                 for($j = 0; $j < count($this->matrix); $j++){
-                    $this->matrix[$i][$j] = 1;
+                    $this->matrix[$i][$j] = -1;
                 }
             }
         }
@@ -166,6 +175,7 @@
 
     $map->placeRooms();
     $map->mapToMatrix();
+    $map->placePlayer();
     $map->printMatrixContent();
 
 ?>
